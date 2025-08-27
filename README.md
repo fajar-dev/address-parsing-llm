@@ -5,23 +5,17 @@ Address parse with Gemini LLM
 ## Setup
 
 ```
-pnpm install
-```
-
-## Lint
-
-```
-pnpm run lint
-```
-
-## Test
-
-```
-pnpm run test
+bun install
 ```
 
 ## Development
 
 ```
-pnpm run dev
+bun run dev
+```
+
+## Build
+
+```
+bun run build
 ```
