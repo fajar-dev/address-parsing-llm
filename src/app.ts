@@ -1,9 +1,16 @@
-import express from "express";
-import type { Application } from "express";
-import routes from "./routes/routes";
+import express, { Application } from 'express'
+import routes from '@/routes/routes'
+import errorHandler from '@/middlewares/errorHandler'
 
-const app: Application = express();
-app.use(express.json());
-app.use("/", routes);
+const app: Application = express()
 
-export default app;
+// Middleware JSON
+app.use(express.json())
+
+// Routes utama
+app.use("/", routes)
+
+// Middleware error handler harus di paling bawah
+app.use(errorHandler)
+
+export default app

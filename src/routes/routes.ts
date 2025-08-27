@@ -1,8 +1,8 @@
-import { Router } from "express";
-import { index } from "../controller/parse.controller";
+import { Router } from 'express'
+import { index } from '@/controller/parse.controller'
 
-const router: Router = Router();
+const router: Router = Router()
 
-router.get("/parse", index);
+router.get("/parse", index)
 
-export default router;
+export default router
