@@ -1,6 +1,6 @@
-import { ZodError, ZodObject } from "zod";
-import { Request, Response, NextFunction } from "express";
-import ApiResponse from "@/helpers/response.helper";
+import { ZodError, ZodObject } from 'zod'
+import { Request, Response, NextFunction } from 'express'
+import ApiResponse from '@/helpers/response.helper'
 
 export class Validator {
   public validate(schema: ZodObject) {
@@ -10,18 +10,18 @@ export class Validator {
           body: req.body,
           query: req.query,
           params: req.params,
-        });
-        next();
+        })
+        next()
       } catch (error) {
           if (error instanceof ZodError) {
           const formattedErrors = error.issues.map((issue) => ({
-            path: issue.path.join("."), // ex: body.address
+            path: issue.path.join("."),
             message: issue.message,
-          }));
-          ApiResponse.validationError(res, formattedErrors);
+          }))
+          ApiResponse.validationError(res, formattedErrors)
         }
       }
-    };
+    }
   }
 }
 

@@ -1,34 +1,35 @@
-import { GoogleGenerativeAI, GenerativeModel, } from '@google/generative-ai';
-import { GeminiConfig } from '@/config/gemini';
+import { GoogleGenerativeAI, GenerativeModel, } from '@google/generative-ai'
+import { GeminiConfig } from '@/config/gemini'
 
 export class GeminiService {
-  private model: GenerativeModel;
+  private model: GenerativeModel
 
   constructor() {
-    const genAI = new GoogleGenerativeAI(GeminiConfig.apiKey);
-    this.model = genAI.getGenerativeModel({ model: GeminiConfig.model });
+    const genAI = new GoogleGenerativeAI(GeminiConfig.apiKey)
+    this.model = genAI.getGenerativeModel({ model: GeminiConfig.model })
   }
 
   /**
-   * Menghasilkan teks JSON alamat dari alamat mentah.
-   * @param address Alamat dalam bentuk string.
-   * @returns Promise<any> Mengembalikan string JSON dari Gemini.
-   */
+   * Generates JSON text of an address from a raw address string.
+   * @param address Address in string format.
+   * @returns Promise<any> Returns the JSON string from Gemini.
+ */
   public async extractAddress(address: string): Promise<any> { 
-    const prompt = GeminiService.prompting(address); 
-    const response = await this.model.generateContent(prompt); 
-    let text = response.response.candidates?.[0]?.content?.parts?.[0]?.text ?? '';
-    text = text.replace(/```json\s*|```/g, '').trim();
-    const jsonData = JSON.parse(text);
-    return jsonData;
+    const prompt = await this.prompting(address) 
+    const response = await this.model.generateContent(prompt) 
+    let text = response.response.candidates?.[0]?.content?.parts?.[0]?.text ?? ''
+    text = text.replace(/```json\s*|```/g, '').trim()
+    const jsonData = JSON.parse(text)
+    return jsonData
   }
 
   /**
-   * Menghasilkan prompt untuk ekstraksi alamat.
-   * @param address Alamat dalam bentuk string.
-   * @returns string Prompt yang telah diformat.
-   */
-  static prompting(address: string): string {
+   * Generates a prompt for address extraction.
+   * @param address Address in string format.
+   * @returns string The formatted prompt.
+  */
+
+  private async prompting(address: string): Promise<string> {
     const ADDRESS_PROMPT = 
     `You are a system that extracts Indonesian address data into structured JSON.
       The JSON must follow this structure:
@@ -77,9 +78,9 @@ export class GeminiService {
         "country": "Indonesia"
       }
 
-      Now extract the following address into JSON:`;
+      Now extract the following address into JSON:`
 
-    return `${ADDRESS_PROMPT} "${address}"`;
+    return `${ADDRESS_PROMPT} "${address}"`
   }
 
 }
