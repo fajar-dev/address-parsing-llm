@@ -29,7 +29,7 @@ bun run test
 ## Requirements
 
 - bun
-- node 22 or higher
+- node 24 or higher
 
 ## How To Start
 - rename the .env.example file to .env 
