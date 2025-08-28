@@ -29,7 +29,7 @@ describe("User API", () => {
         district: expect.any(String),
         regency: expect.any(String),
         province: expect.any(String),
-        postalCode: expect.any(String),
+        postalCode: expect.any(Number),
         country: expect.any(String),
       })
     );
